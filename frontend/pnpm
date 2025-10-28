@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# pnpm wrapper script that falls back to npm
+# This script allows the system to call pnpm commands when pnpm is not installed
+
+case "$1" in
+  "install")
+    echo "Running: npm install (pnpm fallback)"
+    npm install
+    ;;
+  "build" | "run build")
+    echo "Running: npm run build (pnpm fallback)"
+    npm run build
+    ;;
+  "preview" | "run preview")
+    echo "Running: npm run preview (pnpm fallback)"
+    npm run preview
+    ;;
+  "eslint" | "run eslint")
+    echo "Running: npm run eslint (pnpm fallback)"
+    npm run eslint
+    ;;
+  "prettier" | "run prettier")
+    echo "Running: npm run prettier (pnpm fallback)"
+    npm run prettier
+    ;;
+  "add")
+    shift
+    echo "Running: npm install $@ (pnpm fallback)"
+    npm install "$@"
+    ;;
+  "remove")
+    shift
+    echo "Running: npm uninstall $@ (pnpm fallback)"
+    npm uninstall "$@"
+    ;;
+  "--version")
+    echo "9.15.0 (npm fallback wrapper)"
+    ;;
+  *)
+    echo "Running: npm $@ (pnpm fallback)"
+    npm "$@"
+    ;;
+esac
